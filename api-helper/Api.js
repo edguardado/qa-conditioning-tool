@@ -1,8 +1,8 @@
 const axios = require('axios');
 
 class ApiHelper {
-    constructor(baseUrl) {
-      this.baseUrl = baseUrl;
+    constructor(domain) {
+      this.domain = domain;
     }
 
      generateRandomString(length) {
@@ -22,7 +22,7 @@ class ApiHelper {
 
         let token = await this.getToken();
         let instance = this.generateRandomString(5);
-        let vanityUrl = "https://"+instance+".pi.service.pl-labs.com/";
+        let vanityUrl = "https://"+instance+"."+this.domain;
      
      
         let data = JSON.stringify({
@@ -30,9 +30,9 @@ class ApiHelper {
             "licenseCountRelease": 50000,
             "licenseCountStandard": 50000,
             "licenseType": "normal",
-            "mspId": 64,
+            "mspId": 2,
             "name": "Vasion",
-            "parentId": 225,
+            "parentId": 2788,
             "vanityUrl": vanityUrl,
             "addInstance": "both",
             "instanceStatus": "Active"
@@ -41,7 +41,7 @@ class ApiHelper {
           let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://mc-api.pi.service.pl-labs.com/api/smb',
+            url: 'https://mc-api.'+this.domain+'/api/smb',
             headers: { 
               'Content-Type': 'application/json', 
               'Accept': 'application/json', 
@@ -75,7 +75,7 @@ let data = JSON.stringify({
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://mc-api.pi.service.pl-labs.com/api/user/login',
+  url: 'https://mc-api.'+this.domain+'/api/user/login',
   headers: { 
     'Content-Type': 'application/json', 
     'Accept': 'application/json'

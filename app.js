@@ -5,16 +5,27 @@ const BrowserHelper = require('./selenium-helper/BrowserHelper')
 const app = express()
 const port = 3000
 
-app.get('/', async (req, res) => {
- 
-  const api = new ApiHelper('https://api.example.com');
-  const client = new BrowserHelper();
+app.get('/create-instance', async (req, res) => {
 
 
-  let instance = await api.createInstance()
-  console.log(instance+"/admin")
-  await client.setAdminUser(instance);
-  res.send(instance+"/admin");
+  const environment = req.query.env;
+  let domain = 'pi.service.pl-labs.com'
+  // Use the query parameter in your logic
+  if (environment=='stacks' || environment =='stage') {
+    console.log(environment=='stacks')
+    domain = environment=='stacks' ? domain : 'app.pl-stage.com';
+    const api = new ApiHelper(domain);
+    const client = new BrowserHelper();
+  
+  
+    let instance = await api.createInstance()
+    console.log(instance+"/admin")
+    await client.setAdminUser(instance);
+    res.send(instance+"/admin");
+  } else {
+    res.send('Please provide a valid environment: stacks or stage');
+  }
+
 
   
 
