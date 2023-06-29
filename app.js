@@ -9,22 +9,45 @@ app.get('/create-instance', async (req, res) => {
 
 
   const environment = req.query.env;
-  let domain = 'pi.service.pl-labs.com'
-  // Use the query parameter in your logic
+ 
   if (environment=='stacks' || environment =='stage') {
-    console.log(environment=='stacks')
-    domain = environment=='stacks' ? domain : 'app.pl-stage.com';
-    const api = new ApiHelper(domain);
+   
+    const api = new ApiHelper(environment);
     const client = new BrowserHelper();
   
   
     let instance = await api.createInstance()
-    console.log(instance+"/admin")
-    await client.setAdminUser(instance);
-    res.send(instance+"/admin");
+    console.log(instance.response)
+    if(!instance.includes('AxiosError')){
+      console.log(instance+"/admin")
+      await client.setAdminUser(instance);
+      res.send(instance+"/admin");
+    }else{
+      res.send("unable to create instance")
+    }
+    
+    
   } else {
     res.send('Please provide a valid environment: stacks or stage');
   }
+
+
+  
+
+})
+
+app.get('/setup-ldap', async (req, res) => {
+
+
+  const instance = req.query.instance;
+  const url = new URL(instance);
+  const host = url.host;
+
+  const client = new BrowserHelper();
+
+  await client.login(host);
+  await client.setLdap();
+  res.send(host);
 
 
   

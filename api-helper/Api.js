@@ -1,8 +1,11 @@
 const axios = require('axios');
 
 class ApiHelper {
-    constructor(domain) {
-      this.domain = domain;
+    constructor(environment) {
+      this.domain = environment=='stacks' ? 'pi.service.pl-labs.com' : 'app.pl-stage.com';
+      this.mspId = environment=='stacks' ? 2 : 9;
+      this.mspParentId = environment=='stacks' ? 2788 : 147663;
+ 
     }
 
      generateRandomString(length) {
@@ -22,7 +25,18 @@ class ApiHelper {
 
         let token = await this.getToken();
         let instance = this.generateRandomString(5);
-        let vanityUrl = "https://"+instance+"."+this.domain;
+
+        let subdomain = '';
+        if(this.domain.includes('stage')){
+
+         subdomain = this.domain.replace("app.", "");
+        }
+        else{
+          subdomain = this.domain;
+        }
+        let vanityUrl = "https://"+instance+"."+subdomain;
+     
+      
      
      
         let data = JSON.stringify({
@@ -30,9 +44,9 @@ class ApiHelper {
             "licenseCountRelease": 50000,
             "licenseCountStandard": 50000,
             "licenseType": "normal",
-            "mspId": 2,
+            "mspId": this.mspId,
             "name": "Vasion",
-            "parentId": 2788,
+            "parentId": this.mspParentId,
             "vanityUrl": vanityUrl,
             "addInstance": "both",
             "instanceStatus": "Active"
@@ -52,10 +66,12 @@ class ApiHelper {
          
           return axios.request(config)
           .then((response) => {
-            console.log(response.data)
+            //console.log(response.data)
             return JSON.parse(JSON.stringify(response.data["object"]["vanityUrl"]));
           })
           .catch((error) => {
+            console.log(error.data)
+            console.log(error)
             return (error);
           }); 
      
@@ -64,6 +80,8 @@ class ApiHelper {
 
 
     }
+
+    
 
     async getToken(){
        
