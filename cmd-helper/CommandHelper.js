@@ -32,6 +32,26 @@ async executeCommand(command) {
   }
 
   async installClient(instance) {
+    let EXTENSION_PATH = "/Users/eduardoguardado/Data/Projects/qa-conditioning-tool/chrome_extension_1.0.5.8";
+    if (!EXTENSION_PATH) {
+      const RELATIVE_PATH = path.relative(
+        __filename,
+        "chrome_extension_1.0.5.8"
+      );
+      EXTENSION_PATH = path.join(__filename, RELATIVE_PATH);
+    }
+
+    await browser.Browser.setOptions({
+      args: [
+        "--disable-logging",
+        "--disable-notifications",
+        "--ignore-certificate-errors-spki-list",
+        "--ignore-certificate-errors",
+        "---ignore-ssl-errors",
+        "--start-maximized",
+        `load-extension=${EXTENSION_PATH}`,
+      ],
+    });
     await browser.Browser.openPage("https://"+instance);
 
   }
