@@ -117,6 +117,24 @@ app.get('/create-ldap-instance', async (req, res) => {
 
 })
 
+app.get('/install-client', async (req, res) => {
+
+ 
+  try{
+    const instance = req.query.instance;
+    const url = new URL(instance);
+    const host = url.host;
+    const cmd = new CommandHelper();
+    console.log(host)
+    await cmd.installClient(host.toString())
+  }
+  catch(error){
+    console.log(error)
+  }
+
+
+})
+
 app.get('/update-client', async (req, res) => {
  
   try {

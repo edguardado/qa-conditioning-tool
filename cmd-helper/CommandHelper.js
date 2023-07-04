@@ -1,4 +1,6 @@
 const { exec } = require('child_process');
+const browser = require('pl-aut-web-fw');
+
 
 class CommandHelper {
     constructor() {
@@ -27,6 +29,11 @@ async executeCommand(command) {
 
   async deleteFolder(folderPath) {
     return this.executeCommand(`rmdir /s /q "${folderPath}"`);
+  }
+
+  async installClient(instance) {
+    await browser.Browser.openPage("https://"+instance);
+
   }
 }
 
