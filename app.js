@@ -1,6 +1,7 @@
 const express = require('express')
 const ApiHelper = require('./api-helper/Api');
 const BrowserHelper = require('./selenium-helper/BrowserHelper')
+const CommandHelper = require('./cmd-helper/CommandHelper')
 
 const app = express()
 const port = 3000
@@ -115,6 +116,13 @@ app.get('/create-ldap-instance', async (req, res) => {
   
 
 })
+
+app.get('/update-client', async (req, res) => {
+  const cmd = new CommandHelper();
+  await cmd.uninstallApplication("Printer Installer Client")
+
+
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
