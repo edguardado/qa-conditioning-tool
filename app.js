@@ -1,9 +1,11 @@
 const express = require('express')
+const cors = require('cors');
 const ApiHelper = require('./api-helper/Api');
 const BrowserHelper = require('./selenium-helper/BrowserHelper')
 const CommandHelper = require('./cmd-helper/CommandHelper')
 
 const app = express()
+app.use(cors());
 const port = 3000
 
 app.get('/create-instance', async (req, res) => {
@@ -104,6 +106,7 @@ app.get('/create-ldap-instance', async (req, res) => {
 
       await client.login(host);
       await client.addAuthorizedCode();
+      
 
       res.send(instance+"/admin");
     }else{
