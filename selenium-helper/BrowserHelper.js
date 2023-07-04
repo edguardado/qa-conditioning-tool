@@ -147,6 +147,15 @@ class BrowserHelper {
         await browser.Browser.waitForElement("xpath", "//button[contains(text(), 'Generate')]")
         await browser.Browser.click("xpath", "//button[contains(text(), 'Generate')]")
 
+        await browser.Browser.waitForElement("xpath", "//div[contains(@class, 'reactTableDevices')]//table//tr[1]/td[1]")
+        const authCode = await browser.Browser.getElement("xpath", "//div[contains(@class, 'reactTableDevices')]//table//tr[1]/td[1]")
+       
+        await browser.Browser.close();
+
+        return authCode;
+        
+        ////div[contains(@class, 'reactTableDevices')]//table//tr[1]/td[1]
+
         //tokens-link
         //aauthorizeddevices
 

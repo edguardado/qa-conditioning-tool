@@ -31,7 +31,7 @@ async executeCommand(command) {
     return this.executeCommand(`rmdir /s /q "${folderPath}"`);
   }
 
-  async installClient(instance) {
+  async installClient(instance, authcode) {
     let EXTENSION_PATH = "C:\\Users\\eduardo.guardado\\data\\projects\\qa-conditioning-tool\\chrome_extension_1.0.5.8";
     if (!EXTENSION_PATH) {
       const RELATIVE_PATH = path.relative(
@@ -54,8 +54,14 @@ async executeCommand(command) {
     });
 
     await browser.Browser.openPage("https://"+instance);
+    await this.runApplication("C:\\Users\\eduardo.guardado\\Downloads\\PrinterInstallerClientSetup.exe")
 
   }
-}
+
+  async runApplication(appPath) {
+    return this.executeCommand(`start "${appPath}"`);
+  }
+
+  }
 
 module.exports = CommandHelper;

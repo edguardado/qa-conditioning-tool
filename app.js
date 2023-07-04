@@ -146,8 +146,11 @@ app.get('/install-client', async (req, res) => {
     const url = new URL(instance);
     const host = url.host;
     const cmd = new CommandHelper();
-    console.log(host)
-    await cmd.installClient(host.toString())
+    const client = new BrowserHelper();
+    await client.login(host)
+    const authCode = await client.addAuthorizedCode()
+
+    await cmd.installClient(host, authCode)
   }
   catch(error){
     console.log(error)
