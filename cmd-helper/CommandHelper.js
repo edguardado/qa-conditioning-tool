@@ -24,6 +24,10 @@ async executeCommand(command) {
   async uninstallApplication(applicationName) {
     return this.executeCommand(`wmic product where name="${applicationName}" call uninstall`);
   }
+
+  async deleteFolder(folderPath) {
+    return this.executeCommand(`rmdir /s /q "${folderPath}"`);
+  }
 }
 
 module.exports = CommandHelper;

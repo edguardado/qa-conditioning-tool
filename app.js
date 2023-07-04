@@ -122,7 +122,8 @@ app.get('/update-client', async (req, res) => {
   try {
     const cmd = new CommandHelper();
     const output = await cmd.uninstallApplication("Printer Installer Client")
-
+    
+    await cmd.deleteFolder("C:\\Program Files (x86)\\Printer Properties Pro")
     console.log('Uninstallation successful');
     console.log(output);
   } catch (error) {
