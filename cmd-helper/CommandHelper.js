@@ -22,7 +22,7 @@ async executeCommand(command) {
       }
     
   async uninstallApplication(applicationName) {
-    return CommandHelper.executeCommand(`wmic product where name="${applicationName}" call uninstall`);
+    return this.executeCommand(`wmic product where name="${applicationName}" call uninstall`);
   }
 }
 
