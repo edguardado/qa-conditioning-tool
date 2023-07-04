@@ -54,6 +54,24 @@ app.get('/setup-ldap', async (req, res) => {
 
 })
 
+app.get('/setup-ldap-client', async (req, res) => {
+
+
+  const instance = req.query.instance;
+  const url = new URL(instance);
+  const host = url.host;
+
+  const client = new BrowserHelper();
+
+  await client.login(host);
+  await client.addServiceClientLdap();
+  res.send(host);
+
+
+  
+
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

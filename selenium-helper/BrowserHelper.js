@@ -30,6 +30,40 @@ class BrowserHelper {
        
     }
 
+    async addServiceClientLdap(){
+
+        console.log("addServiceClientLdap");
+
+
+        //await browser.Browser.click("id", "gear-return-button")
+
+        await browser.Browser.waitForElement("id", "newfolder")
+        await browser.Browser.click("id", "newfolder")
+        await browser.Browser.waitForElement("id", "popupitem-servicehost")
+        await browser.Browser.click("id", "popupitem-servicehost")
+        await browser.Browser.waitForElement("id", "service-host-name")
+        const serviceHostName = await browser.Browser.getElement("id", "service-host-name")
+        await browser.Browser.setValue(serviceHostName, 'LDAP Service client')
+        const serviceIP = await browser.Browser.getElement("id", "service-host-ip")
+        await browser.Browser.setValue(serviceIP, '10.150.4.245')
+
+        await browser.Browser.click("xpath", "//button[contains(text(), 'Add Service Client')]")
+
+        await browser.Browser.waitForElement("id", "sh-identity-sync")
+        await browser.Browser.click("id", "sh-identity-sync")
+        
+        await browser.Browser.waitForElement("id", "identity-sync-ldap-enabled-checkmark")
+        await browser.Browser.click("id", "identity-sync-ldap-enabled-checkmark")
+
+        await browser.Browser.waitForElement("id", "identity-setting-save")
+        await browser.Browser.click("id", "identity-setting-save")
+
+        await browser.Browser.close();
+        
+        
+
+    }
+
     async setLdap(){
 
         await browser.Browser.waitForElement("id", "gear-menu")
@@ -44,11 +78,7 @@ class BrowserHelper {
 
         await browser.Browser.waitForElement("id", "ldapsettings_addrowbtn")
 
-        
-        //const defaultDomainSelect = await browser.Browser.getElement("id", "ldap_auth_default")
-        //let keys = await browser.Browser.Key();
-        //await defaultDomainSelect.sendKeys(await keys.ARROW_DOWN);
-        //await defaultDomainSelect.sendKeys(await keys.ARROW_DOWN);
+      
         await browser.Browser.click("id", "ldapsettings_addrowbtn")
 
         await browser.Browser.waitForElement("id", "bind_password")
@@ -70,34 +100,33 @@ class BrowserHelper {
 
 
 
-        await browser.Browser.setValue(biosName, 'printerlogic')
-        await browser.Browser.setValue(dnsName, 'printerlogic.local')
+         await browser.Browser.setValue(biosName, 'printerlogic')
+         await browser.Browser.setValue(dnsName, 'printerlogic.local')
         
-        //await browser.Browser.setValue(baseDn, 'dc=printerlogic,dc=local')
-        await browser.Browser.setValue(primaryLdap, '54.177.223.207')
-        await browser.Browser.setValue(primaryLdapInternal, '10.151.0.4')
-        await browser.Browser.setValue(secondaryLddap, '192.168.3.70')
-        //await browser.Browser.setValue(secureCheckMark, "true")
-        await browser.Browser.click("id", "requires_secure_checkmark")
-        await browser.Browser.setValue(domainAlias, 'printerlogic.local')
-        await browser.Browser.setValue(bindUser, 'ptest@printerlogic.local')
-        await browser.Browser.setValue(bindPassword, 'pt12345')
-        await browser.Browser.click("xpath", "//button[contains(text(), 'Apply')]")
-        await browser.Browser.click("id", "ntcs_apply")
+         await browser.Browser.setValue(primaryLdap, '54.177.223.207')
+         await browser.Browser.setValue(primaryLdapInternal, '10.151.0.4')
+         await browser.Browser.setValue(secondaryLddap, '192.168.3.70')
+         await browser.Browser.click("id", "requires_secure_checkmark")
+         await browser.Browser.setValue(domainAlias, 'printerlogic.local')
+         await browser.Browser.setValue(bindUser, 'ptest@printerlogic.local')
+         await browser.Browser.setValue(bindPassword, 'pt12345')
+         await browser.Browser.click("xpath", "//button[contains(text(), 'Apply')]")
+         await browser.Browser.click("id", "ntcs_apply")
 
         
-        // set default domain
-        await browser.Browser.waitForElement("id", "ldap_auth_default")
-        await browser.Browser.click('id', 'ldap_auth_default')
-        await browser.Browser.waitForElement("xpath", "//select[@id = 'ldap_auth_default']/option[2]")
-        await browser.Browser.click("xpath", "//select[@id = 'ldap_auth_default']/option[2]")
-        await browser.Browser.click("id", "ntcs_apply")
+        // // set default domain
+         await browser.Browser.waitForElement("id", "ldap_auth_default")
+         await browser.Browser.click('id', 'ldap_auth_default')
+         await browser.Browser.waitForElement("xpath", "//select[@id = 'ldap_auth_default']/option[2]")
+         await browser.Browser.click("xpath", "//select[@id = 'ldap_auth_default']/option[2]")
+         await browser.Browser.click("id", "ntcs_apply")
         
         
         await browser.Browser.waitForElement("id", "ntcs_apply")
+        await browser.Browser.waitForElement("id", "ldap_auth_default")
         await browser.Browser.close();
 
-        
+        //this.addServiceClientLdap();
 
 
     }
