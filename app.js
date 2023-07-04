@@ -102,6 +102,9 @@ app.get('/create-ldap-instance', async (req, res) => {
       await client.login(host);
       await client.addServiceClientLdap();
 
+      await client.login(host);
+      await client.addAuthorizedCode();
+
       res.send(instance+"/admin");
     }else{
       res.send("unable to create instance")
@@ -114,6 +117,24 @@ app.get('/create-ldap-instance', async (req, res) => {
 
 
   
+
+})
+
+app.get('/add-authorized-code', async (req, res) => {
+
+ 
+  try{
+    const instance = req.query.instance;
+    const url = new URL(instance);
+    const host = url.host;
+    const client = new BrowserHelper();
+    console.log(host)
+    await client.addAuthorizedCode(host);
+  }
+  catch(error){
+    console.log(error)
+  }
+
 
 })
 

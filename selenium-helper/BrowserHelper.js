@@ -63,6 +63,7 @@ class BrowserHelper {
         
 
     }
+    
 
     async setLdap(){
 
@@ -127,6 +128,31 @@ class BrowserHelper {
         await browser.Browser.close();
 
         //this.addServiceClientLdap();
+
+
+    }
+
+    async addAuthorizedCode(){
+
+
+        
+        
+
+        await browser.Browser.waitForElement("id", "gear-menu")
+        await browser.Browser.click("id", "gear-menu")
+
+        await browser.Browser.click("id", "tokens-link")
+        await browser.Browser.click("id", "aauthorizeddevices")
+
+        await browser.Browser.waitForElement("xpath", "//button[contains(text(), 'Generate')]")
+        await browser.Browser.click("xpath", "//button[contains(text(), 'Generate')]")
+
+        //tokens-link
+        //aauthorizeddevices
+
+
+        //gear-menu
+
 
 
     }

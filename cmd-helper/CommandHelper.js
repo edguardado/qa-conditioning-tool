@@ -32,7 +32,7 @@ async executeCommand(command) {
   }
 
   async installClient(instance) {
-    let EXTENSION_PATH = "/Users/eduardoguardado/Data/Projects/qa-conditioning-tool/chrome_extension_1.0.5.8";
+    let EXTENSION_PATH = "C:\\Users\\eduardo.guardado\\data\\projects\\qa-conditioning-tool\\chrome_extension_1.0.5.8";
     if (!EXTENSION_PATH) {
       const RELATIVE_PATH = path.relative(
         __filename,
@@ -52,6 +52,7 @@ async executeCommand(command) {
         `load-extension=${EXTENSION_PATH}`,
       ],
     });
+
     await browser.Browser.openPage("https://"+instance);
 
   }
