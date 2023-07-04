@@ -123,11 +123,35 @@ app.get('/update-client', async (req, res) => {
     const cmd = new CommandHelper();
     const output = await cmd.uninstallApplication("Printer Installer Client")
     
-    await cmd.deleteFolder("C:\\Program Files (x86)\\Printer Properties Pro")
+  
     console.log('Uninstallation successful');
     console.log(output);
   } catch (error) {
     console.error('Uninstallation failed');
+    console.error(error);
+  }
+
+  try {
+    const cmd = new CommandHelper();
+   
+    
+    await cmd.deleteFolder("C:\\Program Files (x86)\\Printer Properties Pro")
+    console.log('Delete folder successful');
+ 
+  } catch (error) {
+    console.error('Delete folder failed');
+    console.error(error);
+  }
+
+  try {
+    const cmd = new CommandHelper();
+   
+    
+    await cmd.deleteFolder("C:\\Users\\eduardo.guardado\\AppData\\Roaming\\PrinterLogic")
+    console.log('Delete roaming folder successful');
+ 
+  } catch (error) {
+    console.error('Delete roaming folder failed');
     console.error(error);
   }
 
