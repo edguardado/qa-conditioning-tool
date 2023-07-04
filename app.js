@@ -118,9 +118,17 @@ app.get('/create-ldap-instance', async (req, res) => {
 })
 
 app.get('/update-client', async (req, res) => {
-  const cmd = new CommandHelper();
-  await cmd.uninstallApplication("Printer Installer Client")
+ 
+  try {
+    const cmd = new CommandHelper();
+    const output = await cmd.uninstallApplication("Printer Installer Client")
 
+    console.log('Uninstallation successful');
+    console.log(output);
+  } catch (error) {
+    console.error('Uninstallation failed');
+    console.error(error);
+  }
 
 });
 
