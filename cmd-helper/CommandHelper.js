@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 const browser = require('pl-aut-web-fw');
-
+const robot = require('robotjs');
 
 class CommandHelper {
     constructor() {
@@ -59,7 +59,25 @@ async executeCommand(command) {
   }
 
   async runApplication(appPath) {
-    return this.executeCommand(`start "${appPath}"`);
+    return this.executeCommand(`"${appPath}"`);
+  }
+
+  async clickCenter(){
+
+    // Get the screen size
+const screenSize = robot.getScreenSize();
+const screenWidth = screenSize.width;
+const screenHeight = screenSize.height;
+
+// Calculate the center coordinates
+const centerX = Math.floor(screenWidth / 2);
+const centerY = Math.floor(screenHeight / 2);
+
+// Move the mouse to the center of the screen
+robot.moveMouse(centerX, centerY);
+
+// Perform a mouse click
+robot.mouseClick();
   }
 
   }

@@ -159,6 +159,22 @@ app.get('/install-client', async (req, res) => {
 
 })
 
+app.get('/click-test', async (req, res) => {
+
+ 
+  try{
+
+    const cmd = new CommandHelper();
+   
+    await cmd.clickCenter()
+  }
+  catch(error){
+    console.log(error)
+  }
+
+
+})
+
 app.get('/update-client', async (req, res) => {
  
   try {
