@@ -216,6 +216,8 @@ app.get('/update-client', async (req, res) => {
     console.error(error);
   }
 
+  res.send("client removed successfully")
+
 });
 
 app.listen(port, () => {
