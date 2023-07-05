@@ -100,13 +100,13 @@ app.get('/create-ldap-instance', async (req, res) => {
 
       await client.login(host);
       await client.setLdap();
-
+      console.log("set up ldap")
       await client.login(host);
       await client.addServiceClientLdap();
-
+      console.log("added service client")
       await client.login(host);
       await client.addAuthorizedCode();
-      
+      console.log("added authorization code")
 
       res.send(instance+"/admin");
     }else{

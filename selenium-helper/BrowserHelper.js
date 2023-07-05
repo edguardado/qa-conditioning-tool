@@ -32,8 +32,7 @@ class BrowserHelper {
 
     async addServiceClientLdap(){
 
-        console.log("addServiceClientLdap");
-
+        
 
         //await browser.Browser.click("id", "gear-return-button")
 
@@ -49,10 +48,13 @@ class BrowserHelper {
 
         await browser.Browser.click("xpath", "//button[contains(text(), 'Add Service Client')]")
 
-        await browser.Browser.waitForElement("id", "sh-identity-sync")
-        await browser.Browser.click("id", "sh-identity-sync")
+        await browser.Browser.waitForElement("id", "service-host-reauth")
         
-        await browser.Browser.waitForElement("id", "identity-sync-ldap-enabled-checkmark")
+        await browser.Browser.waitForElement("id", "sh-identity-sync", 60000)
+        await browser.Browser.click("id", "sh-identity-sync")
+
+        
+        await browser.Browser.waitForElement("id", "identity-sync-ldap-enabled-checkmark", 90000)
         await browser.Browser.click("id", "identity-sync-ldap-enabled-checkmark")
 
         await browser.Browser.waitForElement("id", "identity-setting-save")
