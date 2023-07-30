@@ -102,7 +102,13 @@ app.get('/create-ldap-instance', async (req, res) => {
       await client.setLdap();
       console.log("set up ldap")
       await client.login(host);
-      await client.addServiceClientLdap();
+      try{
+        await client.addServiceClientLdap();
+      }
+      catch(error){
+        console.log(error)
+      }
+      
       console.log("added service client")
       await client.login(host);
       await client.addAuthorizedCode();
