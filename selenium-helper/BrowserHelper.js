@@ -50,8 +50,13 @@ class BrowserHelper {
 
         await browser.Browser.waitForElement("id", "service-host-reauth")
         
-        await browser.Browser.waitForElement("id", "sh-identity-sync", 60000)
-        await browser.Browser.click("id", "sh-identity-sync")
+        await browser.Browser.waitForDisplayed("xpath", "//span[contains(text(), 'Identity Sync')]", null, 120000)
+        try{await browser.Browser.click("xpath", "//span[contains(text(), 'Identity Sync')]")}
+        catch(error){
+            console.log(error)
+            await browser.Browser.click("xpath", "//span[contains(text(), 'Identity Sync')]")
+        }
+        
 
         
         await browser.Browser.waitForElement("id", "identity-sync-ldap-enabled-checkmark", 90000)
@@ -134,6 +139,29 @@ class BrowserHelper {
 
     }
 
+    async enablePortal(){
+
+        await browser.Browser.waitForElement("id", "gear-menu")
+        await browser.Browser.click("id", "gear-menu")
+
+        await browser.Browser.waitForElement("id", "settings-link")
+        await browser.Browser.click("id", "settings-link")
+
+        await browser.Browser.waitForElement("id", "cEndUserWebPage")
+        await browser.Browser.click("id", "cEndUserWebPage")
+
+        await browser.Browser.waitForElement("id", "allow_portal_auto_login_checkmark")
+        await browser.Browser.click("id", "allow_portal_auto_login_checkmark")
+
+        await browser.Browser.waitForElement("xpath", "//button[contains(text(), 'Continue')]")
+        await browser.Browser.click("xpath", "//button[contains(text(), 'Continue')]")
+        
+        await browser.Browser.click("id", "ntcs_apply")
+
+        
+
+    }
+
     async addAuthorizedCode(){
 
 
@@ -152,7 +180,7 @@ class BrowserHelper {
         await browser.Browser.waitForElement("xpath", "//div[contains(@class, 'reactTableDevices')]//table//tr[1]/td[1]")
         const authCode = await browser.Browser.getElement("xpath", "//div[contains(@class, 'reactTableDevices')]//table//tr[1]/td[1]")
        
-        await browser.Browser.close();
+        //await browser.Browser.close();
 
         return authCode;
         
